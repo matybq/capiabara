@@ -20,9 +20,7 @@ def get_note(db: Session, note_id: int) -> Note | None:
     Return a note by id, or None if it does not exist or is soft-deleted.
     """
     note = note_repository.get_by_id(db, note_id)
-    if note is None or note.is_deleted:
-        return None
-    return note
+    return None if note is None or note.is_deleted else note
 
 
 def soft_delete_note(db: Session, note_id: int) -> Note | None:

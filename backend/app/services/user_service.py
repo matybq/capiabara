@@ -20,9 +20,7 @@ def get_user(db: Session, user_id: int) -> User | None:
     Return a user by id, or None if it does not exist or is soft-deleted.
     """
     user = user_repository.get_by_id(db, user_id)
-    if user is None or user.is_deleted:
-        return None
-    return user
+    return None if user is None or user.is_deleted else user
 
 
 def soft_delete_user(db: Session, user_id: int) -> User | None:
