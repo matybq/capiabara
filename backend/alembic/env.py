@@ -13,6 +13,7 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
 from app.core.config import settings
 from app.database import Base
 import app.models.note  # noqa: F401 — registers model in Base.metadata
+import app.models.user  # noqa: F401 — registers model in Base.metadata
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
