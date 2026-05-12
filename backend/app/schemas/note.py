@@ -4,21 +4,12 @@ from pydantic import BaseModel, ConfigDict
 
 
 class NoteCreate(BaseModel):
-    """
-    Schema para el body del POST /notes.
-    Equivalente Rails: strong params en el controller.
-    """
-
     user_id: int
     content: str
     title: str | None = None
 
 
 class NoteRead(BaseModel):
-    """
-    Schema para todas las respuestas de la API.
-    Equivalente Rails: serializer (jbuilder / active_model_serializers).
-    """
 
     model_config = ConfigDict(from_attributes=True)
 
