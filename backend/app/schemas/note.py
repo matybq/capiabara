@@ -9,7 +9,7 @@ class NoteCreate(BaseModel):
     Equivalente Rails: strong params en el controller.
     """
 
-    user_id: str
+    user_id: int
     content: str
     title: str | None = None
 
@@ -23,7 +23,7 @@ class NoteRead(BaseModel):
     model_config = ConfigDict(from_attributes=True)
 
     id: int
-    user_id: str
+    user_id: int
     content: str
     title: str | None
     created_at: datetime
