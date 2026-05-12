@@ -1,16 +1,20 @@
 from sqlalchemy.orm import Session
 
+from app.core.exceptions import UserNotFoundError
 from app.models.note import Note
-from app.repositories import note_repository
+from app.repositories import note_repository, user_repository
 from app.schemas.note import NoteCreate
 
 
 def create_note(db: Session, note_data: NoteCreate) -> Note:
-    """Create a new note."""
+    """Create a new note. Raises UserNotFoundError if the user is missing or soft-deleted."""
+    user = user_repository.get_by_id(db, note_data.user_id)
+    if user is None or user.is_deleted:
+        raise UserNotFoundError(note_data.user_id)
     return note_repository.create(db, note_data)
 
 
-def list_notes_by_user(db: Session, user_id: str) -> list[Note]:
+def list_notes_by_user(db: Session, user_id: int) -> list[Note]:
     """Return all non-deleted notes for a user."""
     return note_repository.list_by_user(db, user_id)
 

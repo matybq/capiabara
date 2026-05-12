@@ -18,7 +18,7 @@ def get_by_id(db: Session, note_id: int) -> Note | None:
     return db.execute(stmt).scalar_one_or_none()
 
 
-def list_by_user(db: Session, user_id: str) -> list[Note]:
+def list_by_user(db: Session, user_id: int) -> list[Note]:
     stmt = select(Note).where(
         Note.user_id == user_id,
         Note.is_deleted == False,  # noqa: E712 — SQLAlchemy requires == False, not `is False`
