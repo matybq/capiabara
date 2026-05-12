@@ -1,0 +1,481 @@
+/* CapIAbara — Design System
+   Structural DNA: Starbucks (warm cream canvas, generous pill buttons, mobile dock, floating CTA)
+   × Mastercard (oversized radii, editorial calm, central protagonism)
+   Typography: Sora (Google Fonts) — single-family, weights 300–800
+   Palette: CapIAbara warm cream × cacao chocolate × violeta softpoint
+*/
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@300;400;450;500;600;700;800&display=swap');
+
+:root {
+  /* ─────────────────────────────────────────────────
+     PALETTE — CapIAbara
+     ───────────────────────────────────────────────── */
+
+  /* Canvas — warm cream putty (Mastercard-style; never pure white) */
+  --cream-50:  #FEFBF6;
+  --cream-100: #FAF6F0;   /* ★ primary canvas */
+  --cream-200: #F3EDE2;   /* lifted surface */
+  --cream-300: #E8DECB;   /* hairline / divider */
+
+  /* Chocolate cacao — primary CTA & ink (Mastercard warm-black ethos) */
+  --cacao-900: #1A1006;   /* ★ primary text */
+  --cacao-800: #2A1A0C;
+  --cacao-700: #3D2410;   /* ★ dock background */
+  --cacao-600: #4A2E15;   /* ★ primary CTA */
+  --cacao-500: #6B4528;
+  --cacao-400: #8A6340;
+  --cacao-300: #B0926F;
+  --cacao-200: #D4BC9E;
+  --cacao-100: #EAD9BF;
+
+  /* Violeta — soft accent (secondary signal, never for primary actions) */
+  --violet-700: #5340CC;
+  --violet-600: #6B52E8;
+  --violet-500: #7B61FF;  /* ★ secondary accent */
+  --violet-400: #9584FF;
+  --violet-300: #B4A8FF;
+  --violet-200: #D6CEFF;
+  --violet-100: #EEE9FF;
+  --violet-50:  #F7F4FF;
+
+  /* ── LEGACY ALIASES (existing jsx components still reference these) ── */
+  --coral-900: var(--cacao-900);
+  --coral-800: var(--cacao-800);
+  --coral-700: var(--cacao-700);
+  --coral-600: var(--cacao-600);
+  --coral-500: var(--cacao-600);   /* primary */
+  --coral-400: var(--cacao-500);
+  --coral-300: var(--cacao-300);
+  --coral-200: var(--cacao-200);
+  --coral-100: var(--cacao-100);
+  --coral-50:  var(--cream-200);
+
+  --moss-900: var(--cacao-900);
+  --moss-800: var(--cacao-800);
+  --moss-700: var(--cacao-600);
+  --moss-600: var(--cacao-500);
+  --moss-500: var(--cacao-500);
+  --moss-400: var(--cacao-400);
+  --moss-300: var(--cacao-300);
+  --moss-200: var(--cacao-200);
+  --moss-100: var(--cacao-100);
+
+  --peach-600: var(--cacao-600);
+  --peach-500: var(--cacao-600);
+  --peach-400: var(--violet-500);
+  --peach-300: var(--violet-400);
+  --peach-200: var(--violet-200);
+  --peach-100: var(--violet-100);
+
+  --coral: var(--cacao-600);
+  --coral-soft: var(--cream-200);
+  --violet: var(--violet-500);
+  --violet-soft: var(--violet-100);
+
+  /* Ink — text hierarchy (Mastercard warm-black spec) */
+  --ink-900: var(--cacao-900);
+  --ink-700: #4A3A2E;
+  --ink-500: #8A7864;
+  --ink-300: #C0AE98;
+
+  /* Semantic */
+  --warn: #D89838;
+  --danger: #C04A32;
+  --success: #6B8A52;
+
+  /* Time-of-day override targets (set by js) */
+  --sky-from: var(--cream-100);
+  --sky-to:   var(--cream-200);
+  --accent:   var(--cacao-600);
+
+  /* ─────────────────────────────────────────────────
+     TYPOGRAPHY — Sora (single-family system)
+     ───────────────────────────────────────────────── */
+  --font-display: 'Sora', -apple-system, system-ui, sans-serif;
+  --font-ui:      'Sora', -apple-system, system-ui, sans-serif;
+
+  /* Sora-specific letter-spacing (Mastercard -2% headline DNA) */
+  --tracking-display: -0.028em;
+  --tracking-heading: -0.02em;
+  --tracking-body:    -0.005em;
+  --tracking-eyebrow: 0.08em;
+
+  /* ─────────────────────────────────────────────────
+     RADII — Mastercard oversized scale
+     20 / 40 / 999 : skip the mid 8-12 range
+     ───────────────────────────────────────────────── */
+  --r-xs:   6px;
+  --r-sm:   14px;
+  --r-md:   20px;   /* buttons (Mastercard ink pill) */
+  --r-lg:   28px;   /* cards */
+  --r-xl:   40px;   /* hero / large stadium */
+  --r-2xl:  56px;
+  --r-pill: 999px;  /* full pill */
+
+  /* ─────────────────────────────────────────────────
+     ELEVATION — atmospheric cushioning
+     ───────────────────────────────────────────────── */
+  --sh-soft:  0 4px 24px rgba(26, 16, 6, 0.04);
+  --sh-card:  0 8px 32px rgba(26, 16, 6, 0.06);
+  --sh-lift:  0 18px 48px rgba(26, 16, 6, 0.10);
+  --sh-fab:   0 12px 28px rgba(74, 46, 21, 0.28),
+              0 2px 6px rgba(74, 46, 21, 0.20);
+}
+
+/* ─────────────────────────────────────────────────
+   BASE
+   ───────────────────────────────────────────────── */
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-ui);
+  font-weight: 450;
+  color: var(--ink-900);
+  letter-spacing: var(--tracking-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  min-height: 100vh;
+  background:
+    radial-gradient(1200px 600px at 15% -5%, rgba(123, 97, 255, 0.06) 0%, transparent 55%),
+    radial-gradient(1000px 800px at 100% 100%, rgba(74, 46, 21, 0.04) 0%, transparent 50%),
+    var(--cream-100);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 16px;
+}
+
+/* ─────────────────────────────────────────────────
+   STAGE — scales iPhone frame to viewport
+   ───────────────────────────────────────────────── */
+.stage {
+  position: relative;
+  width: 100%;
+  max-width: 402px;
+  aspect-ratio: 402 / 874;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.screen {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: 48px;
+}
+
+/* ─────────────────────────────────────────────────
+   TYPOGRAPHY HELPERS
+   ───────────────────────────────────────────────── */
+.display {
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: var(--tracking-display);
+  line-height: 1.02;
+}
+.display-italic {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 500;
+  letter-spacing: var(--tracking-display);
+  line-height: 1.04;
+}
+.ui {
+  font-family: var(--font-ui);
+  letter-spacing: var(--tracking-body);
+}
+.eyebrow {
+  font-family: var(--font-ui);
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: var(--tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--ink-500);
+}
+
+/* ─────────────────────────────────────────────────
+   BUTTONS — Mastercard ink pill × Starbucks full-pill
+   ───────────────────────────────────────────────── */
+.btn {
+  font-family: var(--font-ui);
+  font-weight: 600;
+  font-size: 16px;
+  letter-spacing: -0.01em;
+  border: 1.5px solid transparent;
+  border-radius: var(--r-pill);
+  padding: 14px 26px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.btn:active { transform: scale(0.95); }
+
+.btn-primary {
+  background: var(--cacao-600);
+  color: var(--cream-100);
+  border-color: var(--cacao-600);
+  box-shadow: 0 6px 20px rgba(74, 46, 21, 0.22);
+}
+.btn-primary:hover { background: var(--cacao-700); border-color: var(--cacao-700); }
+
+.btn-ghost {
+  background: transparent;
+  color: var(--cacao-700);
+  border-color: var(--cacao-600);
+}
+.btn-ghost:hover { background: rgba(74, 46, 21, 0.04); }
+
+.btn-secondary {
+  background: #fff;
+  color: var(--cacao-900);
+  border-color: var(--cacao-900);
+}
+
+/* ─────────────────────────────────────────────────
+   CARDS
+   ───────────────────────────────────────────────── */
+.card {
+  background: #fff;
+  border-radius: var(--r-lg);
+  box-shadow: var(--sh-card);
+  padding: 22px;
+}
+.card-lifted {
+  background: var(--cream-50);
+  border-radius: var(--r-xl);
+  padding: 24px;
+}
+
+/* ─────────────────────────────────────────────────
+   TRANSITIONS
+   ───────────────────────────────────────────────── */
+.screen-enter { animation: screenIn 0.55s cubic-bezier(0.2, 0.8, 0.2, 1); }
+@keyframes screenIn {
+  from { opacity: 0; transform: translateY(12px) scale(0.985); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.fade-up { animation: fadeUp 0.6s ease both; }
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* hide scrollbars inside device */
+.screen *::-webkit-scrollbar { width: 0; height: 0; }
+
+/* ─────────────────────────────────────────────────
+   TIME-OF-DAY DIAL (outside device frame)
+   ───────────────────────────────────────────────── */
+.time-dial {
+  position: fixed;
+  right: 20px;
+  top: 20px;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-radius: var(--r-pill);
+  padding: 10px 14px;
+  box-shadow: var(--sh-card);
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  z-index: 100;
+  font-family: var(--font-ui);
+  font-size: 12px;
+  font-weight: 500;
+}
+.time-dial button {
+  border: none;
+  background: transparent;
+  padding: 6px 12px;
+  border-radius: var(--r-pill);
+  cursor: pointer;
+  font: inherit;
+  color: var(--ink-700);
+  transition: all 0.2s;
+  letter-spacing: var(--tracking-body);
+}
+.time-dial button.active {
+  background: var(--cacao-600);
+  color: var(--cream-100);
+}
+.time-dial .label {
+  opacity: 0.55;
+  margin-right: 4px;
+  font-weight: 700;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-eyebrow);
+}
+
+/* ─────────────────────────────────────────────────
+   SKIES — time of day (applied via data-attr on screen)
+   ───────────────────────────────────────────────── */
+.sky-morning   { background: linear-gradient(180deg, #FEFBF6 0%, #FAF6F0 50%, #F3EDE2 100%); }
+.sky-afternoon { background: linear-gradient(180deg, #F3EDE2 0%, #FAF6F0 55%, #EEE9FF 100%); }
+.sky-evening   { background: linear-gradient(180deg, #E8DECB 0%, #D4BC9E 45%, #8A6340 100%); }
+.sky-night     { background: linear-gradient(180deg, #1A1006 0%, #2A1A0C 50%, #3D2410 100%); }
+.sky-madrugada { background: linear-gradient(180deg, #2A1A0C 0%, #3D2410 50%, #5340CC 100%); }
+
+/* ─────────────────────────────────────────────────
+   AMBIENT DECORATIONS (sun, moon, stars)
+   ───────────────────────────────────────────────── */
+.ambient {
+  position: absolute; inset: 0; pointer-events: none; overflow: hidden;
+}
+.ambient-sun {
+  position: absolute; top: 120px; right: 40px; width: 90px; height: 90px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #FFE8BC 0%, #E8DECB 70%, transparent 100%);
+  filter: blur(2px);
+  animation: bob 8s ease-in-out infinite;
+}
+.ambient-moon {
+  position: absolute; top: 100px; right: 50px; width: 60px; height: 60px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #F5EEDD 0%, #D6CEFF 100%);
+  box-shadow: 0 0 40px rgba(214, 206, 255, 0.4);
+}
+.ambient-stars {
+  position: absolute; inset: 0;
+  background-image:
+    radial-gradient(1px 1px at 20% 15%, #fff, transparent),
+    radial-gradient(1px 1px at 45% 25%, #fff, transparent),
+    radial-gradient(1.5px 1.5px at 70% 18%, #fff, transparent),
+    radial-gradient(1px 1px at 85% 35%, #fff, transparent),
+    radial-gradient(1px 1px at 30% 45%, #fff, transparent),
+    radial-gradient(1.5px 1.5px at 60% 8%, #fff, transparent),
+    radial-gradient(1px 1px at 12% 32%, rgba(255, 255, 255, 0.7), transparent);
+  opacity: 0.7;
+  animation: twinkle 4s ease-in-out infinite;
+}
+@keyframes twinkle {
+  0%, 100% { opacity: 0.55; }
+  50% { opacity: 0.9; }
+}
+@keyframes bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+/* Text colors on dark skies */
+.dark-text { color: var(--cream-100); }
+.muted-light { color: rgba(250, 246, 240, 0.72); }
+
+/* ─────────────────────────────────────────────────
+   CHAT BUBBLE
+   ───────────────────────────────────────────────── */
+.bubble {
+  background: #fff;
+  border-radius: 24px 24px 24px 8px;
+  padding: 14px 18px;
+  box-shadow: var(--sh-soft);
+  font-size: 15px;
+  line-height: 1.45;
+  max-width: 82%;
+  position: relative;
+  animation: bubbleIn 0.4s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  letter-spacing: var(--tracking-body);
+}
+.bubble.user {
+  background: var(--cacao-600);
+  color: var(--cream-100);
+  border-radius: 24px 24px 8px 24px;
+  margin-left: auto;
+}
+@keyframes bubbleIn {
+  from { opacity: 0; transform: translateY(8px) scale(0.95); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.typing-dots { display: inline-flex; gap: 4px; padding: 4px 0; }
+.typing-dots span {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--cacao-400);
+  animation: typingBounce 1.2s ease-in-out infinite;
+}
+.typing-dots span:nth-child(2) { animation-delay: 0.2s; }
+.typing-dots span:nth-child(3) { animation-delay: 0.4s; }
+@keyframes typingBounce {
+  0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+  30% { transform: translateY(-5px); opacity: 1; }
+}
+
+/* ─────────────────────────────────────────────────
+   PILL CHIP
+   ───────────────────────────────────────────────── */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--cream-200);
+  color: var(--cacao-700);
+  border-radius: var(--r-pill);
+  padding: 8px 16px;
+  font-size: 13px;
+  font-weight: 500;
+  border: 1px solid var(--cream-300);
+  letter-spacing: var(--tracking-body);
+}
+.chip.peach { background: var(--violet-100); color: var(--violet-700); border-color: var(--violet-200); }
+.chip.ink   { background: var(--cacao-900); color: var(--cream-100); border-color: var(--cacao-900); }
+
+/* ─────────────────────────────────────────────────
+   FLOATING CIRCULAR CTA (Starbucks Frap-style)
+   ───────────────────────────────────────────────── */
+.mate-fab {
+  position: absolute;
+  right: 16px;
+  bottom: 90px;
+  background: var(--cacao-600);
+  color: var(--cream-100);
+  border: none;
+  border-radius: 50%;
+  width: 56px; height: 56px;
+  box-shadow: var(--sh-fab);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 30;
+  font-size: 24px;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.mate-fab:active { transform: scale(0.95); }
+
+.mate-ripple {
+  position: absolute;
+  border-radius: 50%;
+  background: var(--violet-300);
+  opacity: 0.5;
+  pointer-events: none;
+  animation: ripple 0.8s ease-out forwards;
+}
+@keyframes ripple {
+  to { transform: scale(6); opacity: 0; }
+}
+
+.heart-float {
+  position: absolute;
+  font-size: 22px;
+  pointer-events: none;
+  animation: heartUp 1.4s ease-out forwards;
+  z-index: 40;
+}
+@keyframes heartUp {
+  0%   { opacity: 0; transform: translateY(0) scale(0.5); }
+  20%  { opacity: 1; transform: translateY(-10px) scale(1); }
+  100% { opacity: 0; transform: translateY(-80px) scale(1.2); }
+}
