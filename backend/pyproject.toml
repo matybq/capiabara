@@ -12,6 +12,9 @@ dependencies = [
     "alembic>=1.13",
     "pydantic>=2.0",
     "pydantic-settings>=2.0",
+    "google-auth>=2.0",
+    "requests>=2.32",
+    "python-jose[cryptography]>=3.3",
 ]
 
 [dependency-groups]
