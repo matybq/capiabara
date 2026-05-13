@@ -1,12 +1,7 @@
-import Capybara from "./components/Capybara";
-import "./styles.css";
+import HomeScreen from './screens/HomeScreen'
 
 function App() {
-  return (
-    <div style={{ padding: 40, background: "#FBF6EE", minHeight: "100vh" }}>
-      <Capybara size={200} mood="chill" animated={true} />
-    </div>
-  );
+  return <HomeScreen />
 }
 
-export default App;
+export default App
