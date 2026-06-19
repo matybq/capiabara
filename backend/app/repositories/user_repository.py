@@ -18,6 +18,23 @@ def get_by_id(db: Session, user_id: int) -> User | None:
     return db.execute(stmt).scalar_one_or_none()
 
 
+def get_by_google_sub(db: Session, google_sub: str) -> User | None:
+    stmt = select(User).where(User.google_sub == google_sub)
+    return db.execute(stmt).scalar_one_or_none()
+
+
+def get_by_email(db: Session, email: str) -> User | None:
+    stmt = select(User).where(User.email == email)
+    return db.execute(stmt).scalar_one_or_none()
+
+
+def save(db: Session, user: User) -> User:
+    db.add(user)
+    db.commit()
+    db.refresh(user)
+    return user
+
+
 def list_active(db: Session) -> list[User]:
     stmt = select(User).where(
         User.is_deleted == False,  # noqa: E712 — SQLAlchemy requires == False, not `is False`

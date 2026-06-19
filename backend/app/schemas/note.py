@@ -4,7 +4,6 @@ from pydantic import BaseModel, ConfigDict
 
 
 class NoteCreate(BaseModel):
-    user_id: int
     content: str
     title: str | None = None
 

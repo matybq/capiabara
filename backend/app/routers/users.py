@@ -1,36 +1,28 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
+from app.core.config import settings
+from app.core.security import get_current_user
 from app.database import get_db
-from app.schemas.user import UserCreate, UserRead
+from app.models.user import User
+from app.schemas.user import UserCreate, UserCurrentRead, UserRead
 from app.services import user_service
 
 router = APIRouter(prefix="/users", tags=["users"])
 
 
+@router.get("/me", response_model=UserCurrentRead)
+def get_me(current_user: User = Depends(get_current_user)):
+    """Return the authenticated user's own profile."""
+    return UserCurrentRead.model_validate(current_user)
+
+
 @router.post("/", response_model=UserRead, status_code=201)
 def create_user(user_data: UserCreate, db: Session = Depends(get_db)):
+    """
+    Create a user manually. Only available when DEBUG=true.
+    In production (DEBUG=false) this endpoint returns 403.
+    """
+    if not settings.debug:
+        raise HTTPException(status_code=403, detail="Manual user creation is disabled.")
     return user_service.create_user(db, user_data)
-
-
-@router.get("/", response_model=list[UserRead])
-def get_users(db: Session = Depends(get_db)):
-    """List all non-deleted users."""
-    return user_service.list_users(db)
-
-
-@router.get("/{user_id}", response_model=UserRead)
-def get_user(user_id: int, db: Session = Depends(get_db)):
-    user = user_service.get_user(db, user_id)
-    if user is None:
-        raise HTTPException(status_code=404, detail="User not found")
-    return user
-
-
-@router.delete("/{user_id}", response_model=UserRead)
-def delete_user(user_id: int, db: Session = Depends(get_db)):
-    """Soft delete: mark user as deleted."""
-    user = user_service.soft_delete_user(db, user_id)
-    if user is None:
-        raise HTTPException(status_code=404, detail="User not found")
-    return user
