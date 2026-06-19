@@ -154,26 +154,6 @@ body {
 }
 
 /* ─────────────────────────────────────────────────
-   STAGE — scales iPhone frame to viewport
-   ───────────────────────────────────────────────── */
-.stage {
-  position: relative;
-  width: 100%;
-  max-width: 402px;
-  aspect-ratio: 402 / 874;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.screen {
-  position: absolute;
-  inset: 0;
-  overflow: hidden;
-  border-radius: 48px;
-}
-
-/* ─────────────────────────────────────────────────
    TYPOGRAPHY HELPERS
    ───────────────────────────────────────────────── */
 .display {
@@ -274,108 +254,6 @@ body {
   to   { opacity: 1; transform: translateY(0); }
 }
 
-/* hide scrollbars inside device */
-.screen *::-webkit-scrollbar { width: 0; height: 0; }
-
-/* ─────────────────────────────────────────────────
-   TIME-OF-DAY DIAL (outside device frame)
-   ───────────────────────────────────────────────── */
-.time-dial {
-  position: fixed;
-  right: 20px;
-  top: 20px;
-  background: rgba(255, 255, 255, 0.92);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  border-radius: var(--r-pill);
-  padding: 10px 14px;
-  box-shadow: var(--sh-card);
-  display: flex;
-  gap: 6px;
-  align-items: center;
-  z-index: 100;
-  font-family: var(--font-ui);
-  font-size: 12px;
-  font-weight: 500;
-}
-.time-dial button {
-  border: none;
-  background: transparent;
-  padding: 6px 12px;
-  border-radius: var(--r-pill);
-  cursor: pointer;
-  font: inherit;
-  color: var(--ink-700);
-  transition: all 0.2s;
-  letter-spacing: var(--tracking-body);
-}
-.time-dial button.active {
-  background: var(--cacao-600);
-  color: var(--cream-100);
-}
-.time-dial .label {
-  opacity: 0.55;
-  margin-right: 4px;
-  font-weight: 700;
-  font-size: 10px;
-  text-transform: uppercase;
-  letter-spacing: var(--tracking-eyebrow);
-}
-
-/* ─────────────────────────────────────────────────
-   SKIES — time of day (applied via data-attr on screen)
-   ───────────────────────────────────────────────── */
-.sky-morning   { background: linear-gradient(180deg, #FEFBF6 0%, #FAF6F0 50%, #F3EDE2 100%); }
-.sky-afternoon { background: linear-gradient(180deg, #F3EDE2 0%, #FAF6F0 55%, #EEE9FF 100%); }
-.sky-evening   { background: linear-gradient(180deg, #E8DECB 0%, #D4BC9E 45%, #8A6340 100%); }
-.sky-night     { background: linear-gradient(180deg, #1A1006 0%, #2A1A0C 50%, #3D2410 100%); }
-.sky-madrugada { background: linear-gradient(180deg, #2A1A0C 0%, #3D2410 50%, #5340CC 100%); }
-
-/* ─────────────────────────────────────────────────
-   AMBIENT DECORATIONS (sun, moon, stars)
-   ───────────────────────────────────────────────── */
-.ambient {
-  position: absolute; inset: 0; pointer-events: none; overflow: hidden;
-}
-.ambient-sun {
-  position: absolute; top: 120px; right: 40px; width: 90px; height: 90px;
-  border-radius: 50%;
-  background: radial-gradient(circle, #FFE8BC 0%, #E8DECB 70%, transparent 100%);
-  filter: blur(2px);
-  animation: bob 8s ease-in-out infinite;
-}
-.ambient-moon {
-  position: absolute; top: 100px; right: 50px; width: 60px; height: 60px;
-  border-radius: 50%;
-  background: radial-gradient(circle at 35% 35%, #F5EEDD 0%, #D6CEFF 100%);
-  box-shadow: 0 0 40px rgba(214, 206, 255, 0.4);
-}
-.ambient-stars {
-  position: absolute; inset: 0;
-  background-image:
-    radial-gradient(1px 1px at 20% 15%, #fff, transparent),
-    radial-gradient(1px 1px at 45% 25%, #fff, transparent),
-    radial-gradient(1.5px 1.5px at 70% 18%, #fff, transparent),
-    radial-gradient(1px 1px at 85% 35%, #fff, transparent),
-    radial-gradient(1px 1px at 30% 45%, #fff, transparent),
-    radial-gradient(1.5px 1.5px at 60% 8%, #fff, transparent),
-    radial-gradient(1px 1px at 12% 32%, rgba(255, 255, 255, 0.7), transparent);
-  opacity: 0.7;
-  animation: twinkle 4s ease-in-out infinite;
-}
-@keyframes twinkle {
-  0%, 100% { opacity: 0.55; }
-  50% { opacity: 0.9; }
-}
-@keyframes bob {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-6px); }
-}
-
-/* Text colors on dark skies */
-.dark-text { color: var(--cream-100); }
-.muted-light { color: rgba(250, 246, 240, 0.72); }
-
 /* ─────────────────────────────────────────────────
    CHAT BUBBLE
    ───────────────────────────────────────────────── */
@@ -433,54 +311,6 @@ body {
 }
 .chip.peach { background: var(--violet-100); color: var(--violet-700); border-color: var(--violet-200); }
 .chip.ink   { background: var(--cacao-900); color: var(--cream-100); border-color: var(--cacao-900); }
-
-/* ─────────────────────────────────────────────────
-   FLOATING CIRCULAR CTA (Starbucks Frap-style)
-   ───────────────────────────────────────────────── */
-.mate-fab {
-  position: absolute;
-  right: 16px;
-  bottom: 90px;
-  background: var(--cacao-600);
-  color: var(--cream-100);
-  border: none;
-  border-radius: 50%;
-  width: 56px; height: 56px;
-  box-shadow: var(--sh-fab);
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 30;
-  font-size: 24px;
-  transition: transform 0.2s, box-shadow 0.2s;
-}
-.mate-fab:active { transform: scale(0.95); }
-
-.mate-ripple {
-  position: absolute;
-  border-radius: 50%;
-  background: var(--violet-300);
-  opacity: 0.5;
-  pointer-events: none;
-  animation: ripple 0.8s ease-out forwards;
-}
-@keyframes ripple {
-  to { transform: scale(6); opacity: 0; }
-}
-
-.heart-float {
-  position: absolute;
-  font-size: 22px;
-  pointer-events: none;
-  animation: heartUp 1.4s ease-out forwards;
-  z-index: 40;
-}
-@keyframes heartUp {
-  0%   { opacity: 0; transform: translateY(0) scale(0.5); }
-  20%  { opacity: 1; transform: translateY(-10px) scale(1); }
-  100% { opacity: 0; transform: translateY(-80px) scale(1.2); }
-}
 
 /* ─────────────────────────────────────────────────
    HOME SCREEN

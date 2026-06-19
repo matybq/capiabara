@@ -3,8 +3,6 @@
 // Accesorios se superponen como SVG encima.
 function Capybara({
   accessory = 'none',
-  // eslint-disable-next-line no-unused-vars
-  mood = 'chill',
   size = 220,
   animated = true,
   talking = false,
